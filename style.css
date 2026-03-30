@@ -1,0 +1,640 @@
+/* 1. VARIÁVEIS DE CORES E FONTES */
+:root {
+    --dourado: #D4AF37;
+    --laranja: #ff8615;
+    --branco: #FFFFFF;
+    --cinza-suave: rgba(249, 249, 249, 0.9); /* Transparência para ver o logo atrás */
+    --texto: #333333;
+}
+/* Estilo padrão para Computador/Desktop */
+.menu-toggle {
+    display: none; /* Esconde o botão por padrão */
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* 2. EFEITO DE LOGO OPACO NO FUNDO (FIXO) */
+body {
+    position: relative;
+    background: white; /* cor base caso a imagem não carregue */
+}
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background-image: url("imagem/fundo-color.jpg");
+    background-size: cover;
+    background-position: center;
+
+    opacity: 0.30;   /* controla a opacidade da imagem principal */
+    z-index: -2;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* AJUSTE O CAMINHO DA IMAGEM ABAIXO */
+    background-image: url('imagem/mg-joias.png'); 
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 40%; /* Tamanho do logo no fundo */
+    opacity: 0.10; /* DEIXA O LOGO BEM SUAVE (MARCA D'ÁGUA) */
+    z-index: -1; /* Joga para trás de tudo */
+}
+
+/* 3. BARRA DE NAVEGAÇÃO */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background: var(--branco);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.logo { 
+    font-size: 30px; 
+    font-weight: 800; 
+    display: flex; 
+    align-items: center; 
+    text-transform: uppercase;
+}
+.logo .mg { color: var(--laranja); }
+.logo .joias { color: var(--dourado); margin-right: 25px; }
+.logo-img { width: 35px; margin-left: 10px; }
+
+.nav-links { 
+    display: flex; 
+    list-style: none; 
+    align-items: center; 
+}
+.nav-links li a { 
+    text-decoration: none; 
+    color: var(--texto); 
+    margin: 0 15px; 
+    font-size: 16px;
+    font-weight: bold; 
+    transition: 0.3s; 
+    transform: translateY(-3px) scale(1.05);
+    
+}
+.nav-links li a:hover { color: var(--dourado); }
+
+.whatsapp-btn {
+    background: #25D366;
+    color: white !important;
+    padding: 10px 22px;
+    border-radius: 30px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+}
+
+/* ==========================================================
+   NOVO DESIGN PREMIUM DO CARROSSEL DE TEXTO (HERO)
+   ========================================================== */
+
+/* 1. O CONTAINER PRINCIPAL (FORA DE QUALQUER MEDIA QUERY) */
+.hero-section-1 {
+    width: 100%;             /* Ocupa a largura total da tela */
+    height: 70vh;            /* Altura impactante (70% da tela) */
+    position: relative;
+    overflow: hidden;        /* Garante que nada escape */
+    
+    /* Removemos as margens gigantes de 200px para alinhar o conteúdo */
+    margin: 80px 0 0;        /* Apenas a margem do topo para a navbar fixa */
+    
+    /* Um fundo sutil e elegante para o carrossel todo */
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(249, 249, 249, 0.9) 100%);
+}
+
+/* 2. O SLIDE (CAIXA DE TEXTO) - AGORA FLUIDA E ELEGANTE */
+.slide-texto {
+    position: absolute;
+    top: 50%;
+    left: 0;                 /* Começa do canto esquerdo */
+    transform: translate(0, -50%); /* Centraliza apenas verticalmente */
+    
+    width: 100%;             /* Caixa de texto agora ocupa 100% da largura */
+    padding: 0 8%;           /* Respiro elegante nas laterais (8% da tela) */
+    
+    /* REMOVEMOS: O fundo dourado sólido, border-radius e box-shadow */
+    background: transparent !important; /* Limpo e integrado ao fundo */
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    
+    text-align: left;        /* Alinhamento de texto moderno (à esquerda) */
+    
+    /* Configuração de animação */
+    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+    opacity: 0;
+    z-index: 1;
+}
+
+/* Estado ativo do slide */
+.slide-texto.active {
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-start; /* Alinha o conteúdo à esquerda */
+    opacity: 1;
+}
+
+/* Animação de entrada sutil (desliza de baixo para cima) */
+.slide-texto:not(.active) {
+    transform: translate(0, -45%);
+}
+
+
+/* 3. A TIPOGRAFIA IMPACTANTE (O CONTEÚDO DENTRO DO SLIDE) */
+.hero-content-1 {
+    background: transparent !important;
+    padding: 0;
+    border: none;
+    max-width: 700px; /* Impede que o texto fique muito largo em monitores gigantes */
+}
+
+/* O Nome/Título - TIPOGRAFIA MAIOR E MAIS LEVE */
+.hero-content-1 h1 {
+    font-size: 5rem;       /* Aumentamos de 2rem para 3.5rem (Impacto) */
+    font-weight: 300;        /* Menos grosso para ser mais sofisticado */
+    color: var(--texto);    /* Mantemos a cor padrão (#333) ou um dourado escuro */
+    
+    /* OU use a cor dourada se preferir, mas sem o fundo dourado */
+    /* color: var(--dourado); */ 
+
+    margin: 0;
+    text-transform: none;    /* Remove o uppercase (tudo maiúsculo) que pesa */
+    letter-spacing: -1px;    /* Espaço negativo entre as letras (tendência moderna) */
+    line-height: 1.1;        /* Texto mais "juntinho" nas linhas */
+}
+
+/* O Subtítulo/Parágrafo */
+.hero-content-1 p {
+    font-size: 2.5rem;       /* Aumentamos de 1.2rem para 1.5rem */
+    font-weight: 300;
+    color: #555;            /* Um cinza mais escuro e sóbrio */
+    margin-top: 25px;       /* Mais espaço para o parágrafo respirar */
+    opacity: 0.9;
+    letter-spacing: 0;
+}
+
+
+/* 4. AJUSTE RESPONSIVO (MOBILE) */
+@media (max-width: 768px) {
+    .hero-section-1 {
+        height: 50vh;        /* Altura menor no celular */
+        margin-top: 75px;
+    }
+
+    .slide-texto {
+        padding: 0 6%;
+        text-align: center;  /* Centralizamos o texto no celular */
+    }
+
+    .slide-texto.active {
+        justify-content: center;
+    }
+
+    .hero-content-1 h1 {
+        font-size: 2.2rem;   /* Tamanho legível no mobile */
+        letter-spacing: 0;
+    }
+
+    .hero-content-1 p {
+        font-size: 1.1rem;
+        margin-top: 15px;
+    }
+}
+
+/* ESTILO DO CARROSSEL DE FOTOS */
+.image-carousel {
+    position: relative;
+    width: 100%;
+    /* --- CONTROLE DE ALTURA: MUDE O VALOR ABAIXO PARA AUMENTAR OU DIMINUIR --- */
+    height: 70vh; 
+    margin-top: 70px; /* Espaço da navbar fixa */
+    overflow: hidden;
+}
+
+.carousel-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.my-slide {
+    display: none; /* Esconde os slides por padrão */
+    width: 100%;
+    height: 100%;
+}
+
+.my-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Faz a foto preencher o espaço sem distorcer */
+}
+
+/* Botões de Próximo e Anterior */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: var(--dourado);
+    font-weight: bold;
+    font-size: 24px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.next { right: 0; border-radius: 3px 0 0 3px; }
+.prev:hover, .next:hover { background-color: rgba(0,0,0,0.8); color: var(--branco); }
+
+/* Efeito de transição suave */
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+}
+
+.service-grid { 
+    display: grid; 
+    /* Força exatamente 3 colunas iguais */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px; 
+}
+
+/* Responsividade: No celular, vira 1 coluna só */
+@media (max-width: 992px) {
+    .service-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 colunas em tablets */
+    }
+}
+
+@media (max-width: 600px) {
+    .service-grid {
+        grid-template-columns: 1fr; /* 1 coluna no celular */
+    }
+}
+
+.service-card { 
+    background: var(--branco); 
+    border: 1px solid #eee;
+    padding: 0; 
+    padding-bottom: 20px;
+    transition: 0.4s;
+    overflow: hidden;
+    text-align: center; /* Centraliza o texto e a foto */
+}
+
+.services {
+    text-align: center; /* ISSO É ESSENCIAL: Garante que o h2 (inline-block) fique no meio */
+    padding: 80px 5%;
+}
+
+.services h2 {
+    margin-bottom: 60px;
+    color: var(--dourado);
+    font-size: 32px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 800;
+    display: inline-block; /* Faz o h2 ter exatamente o tamanho do texto */
+    position: relative;    /* Referência para a linha */
+}
+
+/* Criando a linha que acompanha o texto */
+.services h2::after {
+    content: "";
+    display: block;
+    width: 110%;      /* 110% faz a linha passar "um pouco" do texto (5% de cada lado) */
+    height: 3px;
+    background: var(--dourado);
+    margin-top: 15px;
+    
+    /* Centraliza a linha em relação ao texto */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Garante que a imagem preencha o espaço e mantenha o padrão */
+.service-card img.img-placeholder {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+    
+    /* ADICIONE ESTAS LINHAS */
+    border: 1px solid var(--dourado); /* Borda dourada de 2px */
+    border-radius: 8px 8px 0 0;       /* Arredonda só o topo para alinhar com o card */
+    padding: 5px;                     /* Cria um espaço branco entre a foto e a borda */
+    background-color: white;          /* Garante que o espaço do padding seja branco */
+}
+
+/* SEÇÃO QUEM SOMOS */
+.about-section {
+    padding: 100px 8%;
+    background: transparent; /* Para o logo de fundo aparecer aqui também */
+}
+
+.about-container {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap; /* Ajuste para celular */
+}
+
+.about-text {
+    flex: 1;
+    min-width: 300px;
+}
+
+.about-text span {
+    color: var(--laranja);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 14px;
+}
+
+.about-text h2 {
+    color: var(--dourado);
+    font-size: 36px;
+    margin: 10px 0 20px;
+}
+
+.about-text p {
+    margin-bottom: 20px;
+    color: #555;
+    font-size: 17px;
+    text-align: justify;
+}
+
+.about-features {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--branco);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border-bottom: 3px solid var(--dourado);
+    flex: 1;
+}
+
+.feature span {
+    font-size: 12px;
+    color: var(--texto);
+    margin-top: 5px;
+    text-align: center;
+}
+
+.about-image {
+    flex: 1;
+    min-width: 250px;
+}
+
+.about-image img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 20px 20px 0px var(--dourado); /* Detalhe moderno em dourado */
+}
+
+/* Ajuste para telas menores */
+@media (max-width: 768px) {
+    .about-image img {
+        box-shadow: 10px 10px 0px var(--dourado);
+    }
+}
+/* ESTILO DO RODAPÉ */
+.footer-contato {
+    padding: 60px 0 30px;
+    background: #ffffff17; /* Ou var(--branco) */
+    text-align: center;
+    border-top: 1px solid #f0f0f0;
+}
+
+.footer-social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Espaçamento entre os ícones */
+    margin-bottom: 30px;
+}
+
+.icon-item {
+    text-decoration: none;
+    font-size: 22px; /* Tamanho mediano dos ícones */
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #f9f9f9;
+    color: #333;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid #eee;
+}
+
+/* Efeito ao passar o mouse */
+.icon-item:hover {
+    transform: translateY(-8px); /* Ele pula um pouquinho */
+    color: #b8b7ac;
+    border-color: transparent;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+}
+
+/* Cores específicas no hover (Usando o dourado para MG Joias) */
+.whatsapp:hover { background: #25d366; }
+.instagram:hover { background: #e4405f; }
+.facebook:hover { background: #1877f2; }
+.email:hover { background: #d4af37; } /* Dourado para o e-mail */
+
+.copyright {
+    font-size: 14px;
+    color: #f09c00;
+    letter-spacing: 1px;
+    margin-top: 20px;
+}
+
+/* Responsividade para celulares */
+@media (max-width: 480px) {
+    .footer-social-icons {
+        gap: 15px;
+    }
+    .icon-item {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+}
+/*Botao voltar para o topo*/
+#topo{
+    position: fixed;
+    bottom: 20px;
+    right:20px;
+    background: rgb(184, 150, 46);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    display: none; /*começa escondido*/
+    opacity: 0.70;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ==========================================================
+   6. RESPONSIVIDADE TOTAL (CORREÇÃO MOBILE)
+   ========================================================== */
+
+@media (max-width: 768px) {
+    /* Ajuste da Navbar para não sumir */
+    .navbar {
+        height: 70px;             /* Altura fixa para controle */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;      /* Alinha logo e botão no centro da barra */
+        padding: 0 5%;
+    }
+    
+
+    .logo {
+        font-size: 22px;
+    }
+
+    /* Ocultar menu padrão e preparar o menu mobile */
+    .nav-links {
+        position: fixed;
+        top: 65px;
+        right: -100%; /* Começa fora da tela */
+        width: 70%;
+        height: 100vh;
+        background: var(--branco); /* Fundo branco em vez de preto */
+        flex-direction: column;
+        gap: 0;
+        transition: 0.4s ease-in-out;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        display: flex; /* Mantém flex para alinhar itens */
+        padding-top: 30px;
+        z-index: 999;
+    }
+
+    .nav-links.active {
+        right: 0; /* Entra na tela ao clicar */
+    }
+
+    .nav-links li {
+        width: 100%;
+        border-bottom: 1px solid #eee;
+    }
+
+    .nav-links li a {
+        display: block;
+        padding: 20px;
+        margin: 0;
+        width: 100%;
+        text-align: center;
+        color: var(--texto) !important; /* Força a cor do texto */
+    }
+
+    .whatsapp-btn {
+        margin: 20px auto;
+        width: 80%;
+        border-radius: 5px;
+    }
+
+    /* Botão Hambúrguer */
+    .menu-toggle {
+        display: block !important;
+        color: var(--dourado); /* Cor do ícone do menu */
+        cursor: pointer;
+        font-size: 28px;
+    }
+
+    /* Ajuste do Carrossel e Texto Hero no Mobile */
+    .image-carousel {
+        height: 50vh; /* Diminui a altura no celular */
+    }
+
+    .slide-texto {
+        width: 85%; /* Aumenta a largura da caixa de texto no mobile */
+        padding: 20px;
+        top: 40%;
+    }
+
+    .hero-content-1 h1 {
+        font-size: 1.5rem;
+    }
+
+    /* Ajuste Seção Quem Somos no Mobile */
+    .about-section {
+        padding: 60px 5%;
+    }
+
+    .about-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-image {
+        order: -1; /* Foto aparece antes do texto no celular */
+        margin-bottom: 30px;
+    }
+
+    .about-text h2 {
+        font-size: 28px;
+    }
+
+    .about-features {
+        flex-direction: column;
+    }
+}
+
+/* Ajuste extra para telas muito pequenas */
+@media (max-width: 480px) {
+    .services h2 {
+        font-size: 24px;
+    }
+    
+    .services h2::after {
+        width: 100%; /* Linha não passa da tela */
+    }
+}
